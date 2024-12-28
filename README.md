@@ -1,3 +1,3 @@
-# code_path
+# Code Path
 
 A new Flutter project.
