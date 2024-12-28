@@ -6,4 +6,5 @@ class CUser extends GetxController {
   
   Users get data => _data.value;
   setData(Users n)=> _data.value = n;
+
 }

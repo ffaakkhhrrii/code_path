@@ -67,7 +67,7 @@ class _SigninPageState extends State<SigninPage> {
                 height: 24,
               ),
               TextFormField(
-                validator: (value)=> value == '' ? 'Password harus diisi':null,
+                validator: (value)=> value == '' ? 'Email harus diisi':null,
                 controller: emailController,
                 decoration: InputDecoration(
                   isDense: true,
@@ -140,7 +140,9 @@ class _SigninPageState extends State<SigninPage> {
                 ),
               ),
               const SizedBox(height: 12,),
-              BaseButton(label: 'Daftar', onTap: (){},isExpand: true,),
+              BaseButton(label: 'Daftar', onTap: (){
+                Navigator.pushNamed(context, AppRoute.signup);
+              },isExpand: true,),
             ],
           ),
         ),

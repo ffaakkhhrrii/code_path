@@ -41,9 +41,9 @@ class MainApp extends StatelessWidget {
         AppRoute.splash : (context) => const SplashPage(),
         AppRoute.signup: (context)=> const SignupPage(),
         AppRoute.signin: (context)=> SigninPage(),
-        AppRoute.home: (context)=> const HomePage(),
-        AppRoute.detailRoles: (context)=> const HomePage(),
-        AppRoute.detailNews: (context)=> const HomePage(),
+        AppRoute.home: (context)=> HomePage(),
+        AppRoute.detailRoles: (context)=> HomePage(),
+        AppRoute.detailNews: (context)=> HomePage(),
       },
     );
   }
