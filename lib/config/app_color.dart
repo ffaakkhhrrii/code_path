@@ -7,4 +7,6 @@ class AppColor{
 
   static const starActive = Color(0xffFA8F29);
   static const starInActive = Color(0xffF6F6F6);
+  static const titleDate = Color(0xff989898);
+  static const backgroundSearch = Color(0xffEEEEEE);
 }

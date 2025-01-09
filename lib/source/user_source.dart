@@ -48,7 +48,7 @@ class UserSource {
           .doc(uid)
           .collection('Progress');
       var addRoles = roles.toJson();
-      await refP.add(addRoles);
+      await refP.doc(roles.id).set(addRoles);
 
       response['success'] = true;
       response['message'] = 'Signup success';
@@ -64,5 +64,10 @@ class UserSource {
       }
     } 
     return response;
+  }
+
+  static Future<ProgressUser> getProgress(String userId,String rolesId) async{
+    var res = await FirebaseFirestore.instance.collection('Users').doc(userId).collection('Progress').doc(rolesId).get();
+    return ProgressUser.fromJson(res.data()!);
   }
 }

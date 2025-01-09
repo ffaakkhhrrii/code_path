@@ -1,6 +1,7 @@
 import 'package:code_path/config/app_asset.dart';
 import 'package:code_path/config/app_color.dart';
 import 'package:code_path/controller/c_home.dart';
+import 'package:code_path/page/menu/home_menu.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,7 +22,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Obx(() {
         if (cHome.indexPage == 0) {
-          return Align(alignment: Alignment.center, child: Text("Home"));
+          return HomeMenu();
         } else if (cHome.indexPage == 1) {
           return const Align(alignment: Alignment.center, child: Text("Path"));
         }

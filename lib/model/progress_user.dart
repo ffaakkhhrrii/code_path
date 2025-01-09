@@ -34,26 +34,22 @@ class Level {
     String? description;
     String? name;
     List<Materials>? materials;
-    bool? isDone = false;
 
     Level({
         this.description,
         this.name,
-        this.materials,
-        this.isDone
+        this.materials
     });
 
     factory Level.fromJson(Map<String, dynamic> json) => Level(
         description: json["description"],
         name: json["name"],
-        isDone: json["isDone"],
         materials: List<Materials>.from(json["materials"].map((x) => Materials.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "description": description,
         "name": name,
-        "isDone": isDone,
         "materials": List<dynamic>.from(materials!.map((x) => x.toJson())),
     };
 }
@@ -61,20 +57,25 @@ class Level {
 class Materials {
     String? name;
     String? recommendation;
+    bool? isDone = false;
+    bool isExpanded = false;
 
     Materials({
         this.name,
         this.recommendation,
+        this.isDone
     });
 
     factory Materials.fromJson(Map<String, dynamic> json) => Materials(
         name: json["name"],
         recommendation: json["recommendation"],
+        isDone: json["isDone"]
     );
 
     Map<String, dynamic> toJson() => {
         "name": name,
         "recommendation": recommendation,
+        "isDone": isDone,
     };
 }
 

@@ -47,11 +47,10 @@ class Level {
         materials: List<Materials>.from(json["materials"].map((x) => Materials.fromJson(x))),
     );
 
-    Map<String, dynamic> toJson({bool isDone = false}) => {
+    Map<String, dynamic> toJson() => {
         "description": description,
         "name": name,
-        "materials": List<dynamic>.from(materials!.map((x) => x.toJson())),
-        "isDone": isDone
+        "materials": List<dynamic>.from(materials!.map((x) => x.toJson()))
     };
 }
 
@@ -69,9 +68,10 @@ class Materials {
         recommendation: json["recommendation"],
     );
 
-    Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson({bool isDone = false}) => {
         "name": name,
         "recommendation": recommendation,
+        "isDone" : isDone
     };
 }
 
