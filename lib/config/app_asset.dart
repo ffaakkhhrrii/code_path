@@ -9,4 +9,5 @@ class AppAsset{
   static const androidBg = 'assets/android_dev.png';
   static const designBg = 'assets/uiux.png';
   static const webBg = 'assets/web.png';
+  static const headerIconNews = 'assets/header_icon_news.png';
 }
