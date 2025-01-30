@@ -1,6 +1,7 @@
 import 'package:code_path/config/app_asset.dart';
 import 'package:code_path/config/app_color.dart';
 import 'package:code_path/config/app_format.dart';
+import 'package:code_path/config/app_route.dart';
 import 'package:code_path/controller/c_news.dart';
 import 'package:code_path/model/news.dart';
 import 'package:flutter/material.dart';
@@ -39,23 +40,34 @@ class NewsMenu extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          GetBuilder<CNews>(builder: (data) {
-            if (data.listNews == null) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.listNews.isEmpty) {
-              return const Center(
-                child: Text('Berita tidak tersedia'),
-              );
-            } else {
-              return ListView.builder(
-                  itemCount: data.listNews.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    News news = data.listNews[index];
-                    return Container(
+          newsList()
+        ],
+      ),
+    );
+  }
+
+  GetBuilder<CNews> newsList() {
+    return GetBuilder<CNews>(builder: (data) {
+          if (data.listNews == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (data.listNews.isEmpty) {
+            return const Center(
+              child: Text('Berita tidak tersedia'),
+            );
+          } else {
+            return ListView.builder(
+                itemCount: data.listNews.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  News news = data.listNews[index];
+                  return GestureDetector(
+                    onTap: (){
+                      Navigator.pushNamed(context, AppRoute.detailNews,arguments: news);
+                    },
+                    child: Container(
                       margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -143,13 +155,11 @@ class NewsMenu extends StatelessWidget {
                           ],
                         ),
                       ),
-                    );
-                  });
-            }
-          })
-        ],
-      ),
-    );
+                    ),
+                  );
+                });
+          }
+        });
   }
 
   Row header(BuildContext context) {

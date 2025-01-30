@@ -17,8 +17,8 @@ class ProgressUser {
         description: json["description"],
         name: json["name"],
         id: json["id"],
-        levels: List<Level>.from(json["levels"].map((x) => Level.fromJson(x))),
-        tools: List<Tool>.from(json["tools"].map((x) => Tool.fromJson(x))),
+        levels: List<Level>.from((json["levels"] ?? []).map((x) => Level.fromJson(x)),),
+        tools: List<Tool>.from((json["tools"]?? []).map((x) => Tool.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -98,3 +98,11 @@ class Tool {
         "name": name,
     };
 }
+
+ProgressUser get initProgress => ProgressUser(
+  id: '',
+  description: '',
+  name: '',
+  levels: [],
+  tools: []
+);

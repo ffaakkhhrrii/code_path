@@ -4,6 +4,7 @@ import 'package:code_path/model/progress_user.dart';
 import 'package:code_path/model/roles.dart';
 import 'package:code_path/model/users.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:get/get.dart';
 
 class UserSource {
   static Future<Map<String, dynamic>> signIn(
@@ -68,6 +69,6 @@ class UserSource {
 
   static Future<ProgressUser> getProgress(String userId,String rolesId) async{
     var res = await FirebaseFirestore.instance.collection('Users').doc(userId).collection('Progress').doc(rolesId).get();
-    return ProgressUser.fromJson(res.data()!);
+    return ProgressUser.fromJson(res.data()??{});
   }
 }

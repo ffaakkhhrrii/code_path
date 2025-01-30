@@ -9,4 +9,6 @@ class AppColor{
   static const starInActive = Color(0xffF6F6F6);
   static const titleDate = Color(0xff989898);
   static const backgroundSearch = Color(0xffEEEEEE);
+  static const bgDescriptionNews = Color(0xffF7F7F7);
+  static const bgCommentField = Color(0xff797C7B);
 }

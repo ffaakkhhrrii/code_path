@@ -11,6 +11,11 @@ class AppFormat {
     return DateFormat('d MMM', 'en_US').format(dateTime);
   }
 
+  static String dateTime(String stringDate) {
+    DateTime dateTime = DateTime.parse(stringDate);
+    return DateFormat('d MMM yyy HH:mm', 'en_US').format(dateTime);
+  }
+
   static String currency(double number) {
     return NumberFormat.currency(
       decimalDigits: 0,

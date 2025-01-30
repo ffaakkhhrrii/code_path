@@ -1,12 +1,16 @@
 import 'package:code_path/config/app_asset.dart';
 import 'package:code_path/config/app_color.dart';
 import 'package:code_path/config/app_format.dart';
+import 'package:code_path/config/app_route.dart';
+import 'package:code_path/config/session.dart';
 import 'package:code_path/controller/c_user.dart';
 import 'package:code_path/model/progress_user.dart';
 import 'package:code_path/source/user_source.dart';
 import 'package:d_info/d_info.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -183,6 +187,7 @@ class _HomeMenuState extends State<HomeMenu> {
                                               ),
                                             ),
                                             Checkbox(
+                                              checkColor: AppColor.secondary,
                                               value: materials.isDone, 
                                               onChanged: (value){
                                                 setState(() {  
@@ -346,12 +351,39 @@ class _HomeMenuState extends State<HomeMenu> {
               borderRadius: BorderRadius.circular(50),
               child: Container(
                 color: AppColor.primary,
-                child: Image.asset(
-                  AppAsset.person,
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
-                ),
+                child: IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.powerOff), 
+                  onPressed: () { 
+                    showDialog(context: context, builder: (context){
+                      return AlertDialog(
+                        title: const Text("Apakah anda ingin keluar?"),
+                        content: const Text("Pilih aksi"),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(
+                                onPressed: (){
+                                  SystemNavigator.pop();
+                                }, 
+                                child: Text("Keluar"),
+                                style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColor.secondary))
+                              ),
+                              TextButton(
+                                onPressed: (){
+                                  Navigator.pushNamed(context, AppRoute.signin);
+                                  Session.clearUser();
+                                }, 
+                                child: Text("Logout"),
+                                style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColor.secondary))
+                              )
+                            ],
+                          )
+                        ],
+                      );
+                    });
+                  }
+                )
               ),
             )
           ],

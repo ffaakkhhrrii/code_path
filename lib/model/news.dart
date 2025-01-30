@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 News newsFromJson(String str) => News.fromJson(json.decode(str));
 
 String newsToJson(News data) => json.encode(data.toJson());
@@ -9,7 +11,7 @@ class News {
     String? createdBy;
     String? description;
     String? id;
-    List<String>? likes;
+    List<Likes>? likes;
     String? theme;
     String? title;
     List<Comments>? comments;
@@ -30,7 +32,7 @@ class News {
         createdBy: json["created_by"],
         description: json["description"],
         id: json["id"],
-        likes: List<String>.from(json["likes"].map((x) => x)),
+        likes: List<Likes>.from(json["likes"].map((x) => Likes.fromJson(x))),
         theme: json["theme"],
         title: json["title"],
         comments: List<Comments>.from(json["comments"].map((x) => Comments.fromJson(x)))
@@ -41,7 +43,7 @@ class News {
         "created_by": createdBy,
         "description": description,
         "id": id,
-        "likes": List<dynamic>.from(likes!.map((x) => x)),
+        "likes": List<dynamic>.from(likes!.map((x) => x.toJson())),
         "theme": theme,
         "title": title,
         "comments": List<dynamic>.from(comments!.map((x) => x.toJson())),
@@ -51,19 +53,39 @@ class News {
 class Comments {
     String? id;
     String? comment;
+    DateTime? createdAt;
 
     Comments({
         this.id,
         this.comment,
+        this.createdAt
     });
 
     factory Comments.fromJson(Map<String, dynamic> json) => Comments(
         id: json["id"],
         comment: json["comment"],
+        createdAt: (json["created_at"] as Timestamp).toDate()
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "comment": comment,
+        "created_at": Timestamp.fromDate(createdAt!),
+    };
+}
+
+class Likes {
+    String? id;
+
+    Likes({
+        this.id,
+    });
+
+    factory Likes.fromJson(Map<String, dynamic> json) => Likes(
+        id: json["id"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
     };
 }
