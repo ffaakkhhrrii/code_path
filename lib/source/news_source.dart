@@ -56,6 +56,24 @@ class NewsSource {
     return ref.docs.map((e)=> News.fromJson(e.data())).toList();
   }
 
+  static Future<Map<String, dynamic>> addNews(News news) async{
+      Map<String,dynamic> response = {};
+      try{
+        var ref = FirebaseFirestore.instance.collection("News");
+        var documentRef = await ref.add(news.toJson());
+        documentRef.update({"id": documentRef.id});
+        response["success"] = true;
+        response["message"] = "Berhasil menambahkan news";
+      }on FirebaseException catch(e){
+        response["success"] = false;
+        response["message"] = e.message!;
+      }catch(e){
+        response["success"] = false;
+        response["message"] = "Unknown Error";
+      }
+      return response;
+  }
+
   /**
    * firestore dont support case insensitive
    * static Future<List<News>> searchNews(String text) async {

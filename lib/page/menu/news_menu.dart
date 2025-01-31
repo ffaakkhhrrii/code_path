@@ -3,6 +3,7 @@ import 'package:code_path/config/app_color.dart';
 import 'package:code_path/config/app_format.dart';
 import 'package:code_path/config/app_route.dart';
 import 'package:code_path/controller/c_news.dart';
+import 'package:code_path/controller/c_user.dart';
 import 'package:code_path/model/news.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class NewsMenu extends StatelessWidget {
   NewsMenu({super.key});
 
   final cNews = Get.put(CNews());
+  final cUser = Get.put(CUser());
   final searchController = TextEditingController();
 
   String themeNews(String theme) {
@@ -26,8 +28,8 @@ class NewsMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: ListView(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      child: Column(
         children: [
           const SizedBox(
             height: 20,
@@ -37,9 +39,6 @@ class NewsMenu extends StatelessWidget {
             height: 20,
           ),
           searchField(),
-          const SizedBox(
-            height: 30,
-          ),
           newsList()
         ],
       ),
@@ -48,116 +47,118 @@ class NewsMenu extends StatelessWidget {
 
   GetBuilder<CNews> newsList() {
     return GetBuilder<CNews>(builder: (data) {
-          if (data.listNews == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (data.listNews.isEmpty) {
+          if (data.listNews.isEmpty) {
             return const Center(
               child: Text('Berita tidak tersedia'),
             );
           } else {
-            return ListView.builder(
-                itemCount: data.listNews.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  News news = data.listNews[index];
-                  return GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context, AppRoute.detailNews,arguments: news);
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppColor.secondary),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              news.title!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(
-                                      color: AppColor.backgroundScaffold,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 20),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Container(
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  color: AppColor.primary,
-                                  borderRadius: BorderRadius.circular(3)),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 2),
-                                child: Center(
-                                  child: Text(
-                                    themeNews(news.theme!),
+            return Expanded(
+              child: RefreshIndicator(
+                onRefresh: ()=> cNews.getListNews(),
+                child: ListView.builder(
+                    itemCount: data.listNews.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      News news = data.listNews[index];
+                      return Expanded(
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.pushNamed(context, AppRoute.detailNews,arguments: news);
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: AppColor.secondary),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    news.title!,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineSmall!
+                                        .headlineMedium!
                                         .copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12),
+                                            color: AppColor.backgroundScaffold,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 20),
                                   ),
-                                ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                        color: AppColor.primary,
+                                        borderRadius: BorderRadius.circular(3)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 2),
+                                      child: Center(
+                                        child: Text(
+                                          themeNews(news.theme!),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 12),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    news.description!,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                            fontSize: 15,
+                                            color: AppColor.backgroundScaffold),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        news.createdBy!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                                fontSize: 15,
+                                                color: AppColor.primary),
+                                      ),
+                                      Text(
+                                        AppFormat.date(news.createdAt!),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                                fontSize: 15,
+                                                color: AppColor.backgroundScaffold),
+                                      ),
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              news.description!,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      fontSize: 15,
-                                      color: AppColor.backgroundScaffold),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  news.createdBy!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                          color: AppColor.primary),
-                                ),
-                                Text(
-                                  AppFormat.date(news.createdAt!),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                          fontSize: 15,
-                                          color: AppColor.backgroundScaffold),
-                                ),
-                              ],
-                            )
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                });
+                      );
+                    }),
+              ),
+            );
           }
         });
   }
@@ -185,23 +186,49 @@ class NewsMenu extends StatelessWidget {
             ),
           ],
         ),
-        Container(
+        iconNews(context)
+      ],
+    );
+  }
+
+  Widget iconNews(BuildContext context) {
+    if(cUser.data.isAdmin == true){
+      return InkWell(
+        onTap: (){
+          Navigator.pushNamed(context, AppRoute.addNews);
+        },
+        child: Container(
           width: 60,
           height: 60,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: AppColor.secondary),
-          child: Center(
-            child: Image.asset(
-              AppAsset.headerIconNews,
-              width: 35,
-              height: 35,
-              color: AppColor.backgroundScaffold,
-            ),
+          child: const Center(
+            child: Icon(
+              Icons.add,
+              size: 40,
+              color: Colors.white,
+            )
           ),
-        )
-      ],
-    );
+        ),
+      );
+    }else{
+      return Container(
+        width: 60,
+        height: 60,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: AppColor.secondary),
+        child: Center(
+          child: Image.asset(
+            AppAsset.headerIconNews,
+            width: 35,
+            height: 35,
+            color: AppColor.backgroundScaffold,
+          ),
+        ),
+      );
+    }
   }
 
   Stack searchField() {

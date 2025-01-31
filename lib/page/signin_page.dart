@@ -4,7 +4,6 @@ import 'package:code_path/config/app_color.dart';
 import 'package:code_path/config/app_route.dart';
 import 'package:code_path/controller/c_user.dart';
 import 'package:code_path/source/user_source.dart';
-import 'package:code_path/utils/result.dart';
 import 'package:code_path/widget/base_button.dart';
 import 'package:d_info/d_info.dart';
 import 'package:flutter/material.dart';

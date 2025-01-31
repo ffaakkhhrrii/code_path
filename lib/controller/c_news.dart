@@ -12,7 +12,7 @@ class CNews extends GetxController{
 
   News get news => _news.value;
 
-  getListNews() async{
+  Future<void> getListNews() async{
     _listNews.value = await NewsSource.getAllNews();
     update();
   }

@@ -22,6 +22,10 @@ class CAdmin extends GetxController {
     update();
   }
 
+  Future<Map<String,dynamic>> addNews(News news) async{
+    return NewsSource.addNews(news);
+  }
+
   @override
   void onInit() {
     getNewsCount();

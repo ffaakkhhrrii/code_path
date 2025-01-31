@@ -2,6 +2,7 @@ import 'package:code_path/config/app_color.dart';
 import 'package:code_path/config/app_route.dart';
 import 'package:code_path/config/session.dart';
 import 'package:code_path/firebase_options.dart';
+import 'package:code_path/page/add_news_page.dart';
 import 'package:code_path/page/detail_news_page.dart';
 import 'package:code_path/page/home_page.dart';
 import 'package:code_path/page/signin_page.dart';
@@ -45,6 +46,7 @@ class MainApp extends StatelessWidget {
         AppRoute.home: (context)=> HomePage(),
         AppRoute.detailRoles: (context)=> HomePage(),
         AppRoute.detailNews: (context)=> DetailNewsPage(),
+        AppRoute.addNews: (context)=> AddNewsPage()
       },
     );
   }
