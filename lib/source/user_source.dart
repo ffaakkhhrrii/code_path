@@ -71,4 +71,10 @@ class UserSource {
     var res = await FirebaseFirestore.instance.collection('Users').doc(userId).collection('Progress').doc(rolesId).get();
     return ProgressUser.fromJson(res.data()??{});
   }
+
+  static Future<List<Users>> getAllUser() async{
+    var res = await FirebaseFirestore.instance.collection("Users").get();
+    return res.docs.map((e)=> Users.fromJson(e.data())).toList();
+  }
+
 }

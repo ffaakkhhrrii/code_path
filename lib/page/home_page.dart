@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Obx(() {
         if (cHome.indexPage == 0) {
-          return HomeMenu();
+          return const HomeMenu();
         } else if (cHome.indexPage == 1) {
           return const Align(alignment: Alignment.center, child: Text("Path"));
         }else{

@@ -51,6 +51,11 @@ class NewsSource {
     await instance;
   }
 
+  static Future<List<News>> getCountNews()async{
+    var ref = await FirebaseFirestore.instance.collection("News").get();
+    return ref.docs.map((e)=> News.fromJson(e.data())).toList();
+  }
+
   /**
    * firestore dont support case insensitive
    * static Future<List<News>> searchNews(String text) async {
