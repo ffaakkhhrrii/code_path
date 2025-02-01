@@ -1,6 +1,8 @@
 import 'package:code_path/model/news.dart';
+import 'package:code_path/model/roles.dart';
 import 'package:code_path/model/users.dart';
 import 'package:code_path/source/news_source.dart';
+import 'package:code_path/source/roles_source.dart';
 import 'package:code_path/source/user_source.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -24,6 +26,10 @@ class CAdmin extends GetxController {
 
   Future<Map<String,dynamic>> addNews(News news) async{
     return NewsSource.addNews(news);
+  }
+
+  Future<Map<String,dynamic>> addPath(Roles role)async{
+    return RolesSource.addPath(role);
   }
 
   @override

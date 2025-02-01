@@ -1,9 +1,10 @@
 import 'package:code_path/config/app_color.dart';
 import 'package:code_path/config/app_route.dart';
-import 'package:code_path/config/session.dart';
 import 'package:code_path/firebase_options.dart';
-import 'package:code_path/page/add_news_page.dart';
+import 'package:code_path/page/admin_menu/add_news_page.dart';
+import 'package:code_path/page/admin_menu/add_path_page.dart';
 import 'package:code_path/page/detail_news_page.dart';
+import 'package:code_path/page/detail_path_page.dart';
 import 'package:code_path/page/home_page.dart';
 import 'package:code_path/page/signin_page.dart';
 import 'package:code_path/page/signup_page.dart';
@@ -42,11 +43,12 @@ class MainApp extends StatelessWidget {
       routes: {
         AppRoute.splash : (context) => const SplashPage(),
         AppRoute.signup: (context)=> const SignupPage(),
-        AppRoute.signin: (context)=> SigninPage(),
+        AppRoute.signin: (context)=> const SigninPage(),
         AppRoute.home: (context)=> HomePage(),
-        AppRoute.detailRoles: (context)=> HomePage(),
-        AppRoute.detailNews: (context)=> DetailNewsPage(),
-        AppRoute.addNews: (context)=> AddNewsPage()
+        AppRoute.detailRoles: (context)=> const DetailPathPage(),
+        AppRoute.detailNews: (context)=> const DetailNewsPage(),
+        AppRoute.addNews: (context)=> const AddNewsPage(),
+        AppRoute.addPath: (context) => const AddPathPage()
       },
     );
   }

@@ -6,4 +6,5 @@ class AppRoute {
   static const detailRoles = '/detail_roles';
   static const detailNews = '/detail_news';
   static const addNews = '/add_news';
+  static const addPath = '/add_path';
 }

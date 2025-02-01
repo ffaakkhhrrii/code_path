@@ -33,12 +33,12 @@ class Roles {
 class Level {
     String? description;
     String? name;
-    List<Materials>? materials;
+    List<Materials> materials;
 
     Level({
         this.description,
         this.name,
-        this.materials,
+        required this.materials,
     });
 
     factory Level.fromJson(Map<String, dynamic> json) => Level(
@@ -57,6 +57,7 @@ class Level {
 class Materials {
     String? name;
     String? recommendation;
+    bool isExpanded = false;
 
     Materials({
         this.name,

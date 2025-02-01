@@ -13,4 +13,21 @@ class RolesSource {
     var doc = await ref.get();
     return Roles.fromJson(doc.data()!);
   }
+
+  static Future<Map<String, dynamic>> addPath(Roles roles) async{
+      Map<String,dynamic> response = {};
+      try{
+        var ref = FirebaseFirestore.instance.collection("Roles").doc(roles.id);
+        await ref.set(roles.toJson());
+        response["success"] = true;
+        response["message"] = "Berhasil menambahkan Roles";
+      }on FirebaseException catch(e){
+        response["success"] = false;
+        response["message"] = e.message!;
+      }catch(e){
+        response["success"] = false;
+        response["message"] = "Unknown Error";
+      }
+      return response;
+  }
 }

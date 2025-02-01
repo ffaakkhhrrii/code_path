@@ -1,3 +1,5 @@
+import 'package:code_path/config/app_asset.dart';
+import 'package:code_path/model/roles.dart';
 import 'package:intl/intl.dart';
 
 class AppFormat {
@@ -22,5 +24,31 @@ class AppFormat {
       locale: 'en_US',
       symbol: '\$',
     ).format(number);
+  }
+
+  static String formatPathName(String text){
+    var result = text.replaceFirst(" ", "\n");
+    return result;
+  }
+
+  static String formatIdPathName(String text){
+    var result = text.split("_").map((word) => word[0].toUpperCase() + word.substring(1))
+      .join(" ");
+    return result;
+  }
+
+  static String showImageRoles(String roles){
+    if(roles == "android_developer"){
+      return AppAsset.androidBg;
+    }else if(roles == "web_developer"){
+      return AppAsset.webBg;
+    }else{
+      return AppAsset.bgDefaultNews;
+    }
+  }
+
+  static String generateIdRoles(String text){
+    var result = text.toLowerCase().replaceAll(' ', '_');
+    return result;
   }
 }

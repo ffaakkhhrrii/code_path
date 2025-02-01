@@ -3,6 +3,7 @@ import 'package:code_path/config/app_color.dart';
 import 'package:code_path/controller/c_home.dart';
 import 'package:code_path/page/menu/home_menu.dart';
 import 'package:code_path/page/menu/news_menu.dart';
+import 'package:code_path/page/menu/path_menu.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
         if (cHome.indexPage == 0) {
           return const HomeMenu();
         } else if (cHome.indexPage == 1) {
-          return const Align(alignment: Alignment.center, child: Text("Path"));
+          return PathMenu();
         }else{
           return NewsMenu();
         }

@@ -6,8 +6,10 @@ import 'package:code_path/config/session.dart';
 import 'package:code_path/controller/c_admin.dart';
 import 'package:code_path/controller/c_user.dart';
 import 'package:code_path/model/progress_user.dart';
+import 'package:code_path/model/users.dart';
 import 'package:code_path/source/user_source.dart';
 import 'package:d_info/d_info.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -247,20 +249,22 @@ class _HomeMenuState extends State<HomeMenu> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text.rich(
-                                            TextSpan(
-                                              text: materials.recommendation!,
-                                              style: const TextStyle(color: Colors.blue,decoration: TextDecoration.underline),
-                                              recognizer: TapGestureRecognizer()
-                                              ..onTap = () async{
-                                                final url = Uri.parse(materials.recommendation!);
-                                                try{
-                                                  await launchUrl(url,mode: LaunchMode.externalApplication);
-                                                }catch(e){
-                                                  DInfo.dialogError(context, 'Tidak bisa membuka link');
-                                                  DInfo.closeDialog(context);
+                                          Expanded(
+                                            child: Text.rich(
+                                              TextSpan(
+                                                text: materials.recommendation!,
+                                                style: const TextStyle(color: Colors.blue,decoration: TextDecoration.underline),
+                                                recognizer: TapGestureRecognizer()
+                                                ..onTap = () async{
+                                                  final url = Uri.parse(materials.recommendation!);
+                                                  try{
+                                                    await launchUrl(url,mode: LaunchMode.externalApplication);
+                                                  }catch(e){
+                                                    DInfo.dialogError(context, 'Tidak bisa membuka link');
+                                                    DInfo.closeDialog(context);
+                                                  }
                                                 }
-                                              }
+                                              ),
                                             ),
                                           ),
                                           Checkbox(
@@ -312,7 +316,7 @@ class _HomeMenuState extends State<HomeMenu> {
                 fit: StackFit.expand,
                 children: [
                   Image.asset(
-                    AppAsset.bgDefaultNews,
+                    cUser.data.isAdmin == true ? AppAsset.bgDefaultNews: AppFormat.showImageRoles(cUser.data.role!),
                     fit: BoxFit.cover,
                   ),
                   Container(
@@ -336,8 +340,9 @@ class _HomeMenuState extends State<HomeMenu> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 15,),
                 Text(
-                  'Trending News\nFor You',
+                  cUser.data.isAdmin == true ? 'Our Data\nToday' : AppFormat.formatIdPathName(cUser.data.role!),
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Colors.white,
                       fontSize: 20,
@@ -346,6 +351,7 @@ class _HomeMenuState extends State<HomeMenu> {
                 const SizedBox(
                   height: 15,
                 ),
+                if(cUser.data.isAdmin == false)
                 SizedBox(
                   height: 30,
                   width: 90,
