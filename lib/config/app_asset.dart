@@ -10,4 +10,5 @@ class AppAsset{
   static const designBg = 'assets/uiux.png';
   static const webBg = 'assets/web.png';
   static const headerIconNews = 'assets/header_icon_news.png';
+  static const appLogo = 'assets/code_path_logo.png';
 }
