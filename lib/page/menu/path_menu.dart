@@ -9,28 +9,34 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PathMenu extends StatelessWidget {
-  PathMenu({super.key});
+class PathMenu extends StatefulWidget {
+  const PathMenu({super.key});
 
+  @override
+  State<PathMenu> createState() => _PathMenuState();
+}
+
+class _PathMenuState extends State<PathMenu> {
+  
   final cRoles = Get.put(CRoles());
   final cUser = Get.put(CUser());
 
   @override
+  void initState() {
+    cRoles.getListRoles();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            header(context),
-            const SizedBox(
-              height: 10,
-            ),
-            listPath()
-          ],
+    return Column(
+      children: [
+        const SizedBox(
+        height: 30,
         ),
+        header(context),
+        Expanded(child: RefreshIndicator(child: listPath(),onRefresh: ()=>cRoles.getListRoles(),))
+      ],
     );
   }
 
@@ -39,18 +45,15 @@ class PathMenu extends StatelessWidget {
             if(controller.listRoles.isEmpty){
               return const Center(child: Text("Belum ada path"),);
             }else{
-              return RefreshIndicator(
-                onRefresh: () => cRoles.getListRoles(),
-                child: Expanded(
-                  child: ListView.builder(
+              return ListView.builder(
                     shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: controller.listRoles.length,
                     itemBuilder: (context,index){
                       Roles roles = controller.listRoles[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Container(
+                      return Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                          padding: const EdgeInsets.all(16),
                           child: Stack(
                             children: [
                               ClipRRect(
@@ -124,35 +127,36 @@ class PathMenu extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          ),
-                        ),
+                          )
                       );
-                  }),
-                ),
-              );
+                  });
             }
-          });
+          }
+      );
   }
 
 
-  Row header(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'All Path',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall!
-                  .copyWith(fontSize: 26, fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-        iconNews(context)
-      ],
+  Padding header(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'All Path',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(fontSize: 26, fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
+          iconNews(context)
+        ],
+      ),
     );
   }
 

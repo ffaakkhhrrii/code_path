@@ -1,4 +1,3 @@
-import 'package:code_path/config/session.dart';
 import 'package:code_path/model/news.dart';
 import 'package:code_path/source/news_source.dart';
 import 'package:get/get.dart';
@@ -12,7 +11,7 @@ class CNews extends GetxController{
 
   News get news => _news.value;
 
-  Future<void> getListNews() async{
+  getListNews() async{
     _listNews.value = await NewsSource.getAllNews();
     update();
   }

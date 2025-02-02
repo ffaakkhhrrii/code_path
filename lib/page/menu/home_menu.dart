@@ -4,8 +4,10 @@ import 'package:code_path/config/app_format.dart';
 import 'package:code_path/config/app_route.dart';
 import 'package:code_path/config/session.dart';
 import 'package:code_path/controller/c_admin.dart';
+import 'package:code_path/controller/c_roles.dart';
 import 'package:code_path/controller/c_user.dart';
-import 'package:code_path/model/progress_user.dart';
+import 'package:code_path/model/progress_user.dart' as progress_user;
+import 'package:code_path/model/roles.dart';
 import 'package:code_path/model/users.dart';
 import 'package:code_path/source/user_source.dart';
 import 'package:d_info/d_info.dart';
@@ -28,6 +30,7 @@ class HomeMenu extends StatefulWidget {
 class _HomeMenuState extends State<HomeMenu> {
   final cUser = Get.put(CUser());
   final cAdmin = Get.put(CAdmin());
+  final cRoles = Get.put(CRoles());
 
   @override
   void initState() {
@@ -163,7 +166,7 @@ class _HomeMenuState extends State<HomeMenu> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, indexLevel) {
-                  Level level = _.progressUser.levels![indexLevel];
+                  progress_user.Level level = _.progressUser.levels![indexLevel];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -172,7 +175,7 @@ class _HomeMenuState extends State<HomeMenu> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            Materials materials = level.materials![index];
+                            progress_user.Materials materials = level.materials![index];
                             return Column(
                               children: [
                                 Container(
@@ -359,7 +362,12 @@ class _HomeMenuState extends State<HomeMenu> {
                     color: AppColor.primary,
                     borderRadius: BorderRadius.circular(8),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        cRoles.getDataRole(cUser.data.role!).then((e){
+                          Roles role = cRoles.dataRole;
+                          Navigator.pushNamed(context, AppRoute.detailRoles,arguments: role);
+                        });
+                      },
                       child: Container(
                         width: null,
                         padding: const EdgeInsets.all(5),
