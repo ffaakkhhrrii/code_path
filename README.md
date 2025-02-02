@@ -20,3 +20,6 @@ The project structure of this application, based on references from the online c
 - Firebase Database (Firestore,Authentication)
 - Flutter
 - GetX
+
+# Download App 👇
+[Code Path](https://github.com/ffaakkhhrrii/code_path/releases/download/v1/app-release.apk)
