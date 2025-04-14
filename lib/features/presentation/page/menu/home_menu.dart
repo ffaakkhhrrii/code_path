@@ -6,7 +6,8 @@ import 'package:code_path/core/config/session.dart';
 import 'package:code_path/features/presentation/controller/c_admin.dart';
 import 'package:code_path/features/presentation/controller/c_roles.dart';
 import 'package:code_path/features/presentation/controller/c_user.dart';
-import 'package:code_path/features/data/model/progress_user.dart' as progress_user;
+import 'package:code_path/features/data/model/progress_user.dart'
+    as progress_user;
 import 'package:code_path/features/data/model/roles.dart';
 import 'package:d_info/d_info.dart';
 import 'package:flutter/gestures.dart';
@@ -44,7 +45,6 @@ class _HomeMenuState extends State<HomeMenu> {
           height: 25,
         ),
         header(context),
-        //searchField(),
         const SizedBox(
           height: 25,
         ),
@@ -58,76 +58,65 @@ class _HomeMenuState extends State<HomeMenu> {
   }
 
   Padding bodyHome(BuildContext context) {
-    if(cUser.data.isAdmin != true){
+    if (cUser.data.isAdmin != true) {
       return homeUsers(context);
-    }else{
+    } else {
       return homeAdmin(context);
     }
-    
   }
 
   Padding homeAdmin(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: GetBuilder<CAdmin>(builder: (controller){
-        return GridView.count(
-          childAspectRatio: 5/3,
-          padding: const EdgeInsets.all(4.0),
-          mainAxisSpacing: 10.0,
-          crossAxisSpacing: 10.0,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: AppColor.primary,
-                borderRadius: BorderRadius.circular(20)
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.people,
-                    size: 50,
-                  ),
-                  Text(
-                    "${controller.listUsers.length} Users",
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16
-                    ),
-                  ),
-                ],
-              )
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColor.primary,
-                borderRadius: BorderRadius.circular(20)
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.newspaper,
-                    size: 50,
-                  ),
-                  Text(
-                    "${controller.listNews.length} News",
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16
-                    ),
-                  ),
-                ],
-              )
-            ),
-          ],
-        );
-        }
-      )
-    );
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: GetBuilder<CAdmin>(builder: (controller) {
+          return GridView.count(
+            childAspectRatio: 5 / 3,
+            padding: const EdgeInsets.all(4.0),
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            children: [
+              Container(
+                  decoration: BoxDecoration(
+                      color: AppColor.primary,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.people,
+                        size: 50,
+                      ),
+                      Text(
+                        "${controller.listUsers.length} Users",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.w700, fontSize: 16),
+                      ),
+                    ],
+                  )),
+              Container(
+                  decoration: BoxDecoration(
+                      color: AppColor.primary,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.newspaper,
+                        size: 50,
+                      ),
+                      Text(
+                        "${controller.listNews.length} News",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.w700, fontSize: 16),
+                      ),
+                    ],
+                  )),
+            ],
+          );
+        }));
   }
 
   Padding homeUsers(BuildContext context) {
@@ -149,8 +138,10 @@ class _HomeMenuState extends State<HomeMenu> {
                 children: [
                   Text(
                     'Your Progress',
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        fontSize: 20, fontWeight: FontWeight.w700),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(fontSize: 20, fontWeight: FontWeight.w700),
                   )
                 ],
               ),
@@ -162,7 +153,8 @@ class _HomeMenuState extends State<HomeMenu> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, indexLevel) {
-                  progress_user.Level level = _.progressUser.levels![indexLevel];
+                  progress_user.Level level =
+                      _.progressUser.levels![indexLevel];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -171,12 +163,16 @@ class _HomeMenuState extends State<HomeMenu> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            progress_user.Materials materials = level.materials![index];
+                            progress_user.Materials materials =
+                                level.materials![index];
                             return Column(
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                      borderRadius: materials.isExpanded == true ? const BorderRadius.vertical(top: Radius.circular(10)): BorderRadius.circular(10),
+                                      borderRadius: materials.isExpanded == true
+                                          ? const BorderRadius.vertical(
+                                              top: Radius.circular(10))
+                                          : BorderRadius.circular(10),
                                       color: materials.isDone == true
                                           ? AppColor.primary
                                           : AppColor.secondary),
@@ -189,13 +185,13 @@ class _HomeMenuState extends State<HomeMenu> {
                                         InkWell(
                                           onTap: () {
                                             setState(() {
-                                              materials.isExpanded = !materials.isExpanded;
+                                              materials.isExpanded =
+                                                  !materials.isExpanded;
                                             });
                                           },
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 materials.name!,
@@ -209,25 +205,20 @@ class _HomeMenuState extends State<HomeMenu> {
                                                         color: materials
                                                                     .isDone ==
                                                                 true
-                                                            ? AppColor
-                                                                .secondary
+                                                            ? AppColor.secondary
                                                             : AppColor
                                                                 .backgroundScaffold),
                                               ),
                                               Icon(
                                                 materials.isExpanded == true
-                                                      ? Icons
-                                                          .keyboard_arrow_down
-                                                      : Icons
-                                                          .keyboard_arrow_right,
-                                                  color: materials
-                                                                    .isDone ==
-                                                                true
-                                                            ? AppColor
-                                                                .secondary
-                                                            : AppColor
-                                                                .backgroundScaffold,
-                                                ),
+                                                    ? Icons.keyboard_arrow_down
+                                                    : Icons
+                                                        .keyboard_arrow_right,
+                                                color: materials.isDone == true
+                                                    ? AppColor.secondary
+                                                    : AppColor
+                                                        .backgroundScaffold,
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -246,47 +237,59 @@ class _HomeMenuState extends State<HomeMenu> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16.0),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: Text.rich(
                                               TextSpan(
-                                                text: materials.recommendation!,
-                                                style: const TextStyle(color: Colors.blue,decoration: TextDecoration.underline),
-                                                recognizer: TapGestureRecognizer()
-                                                ..onTap = () async{
-                                                  final url = Uri.parse(materials.recommendation!);
-                                                  try{
-                                                    await launchUrl(url,mode: LaunchMode.externalApplication);
-                                                  }catch(e){
-                                                    DInfo.dialogError(context, 'Tidak bisa membuka link');
-                                                    DInfo.closeDialog(context);
-                                                  }
-                                                }
-                                              ),
+                                                  text:
+                                                      materials.recommendation!,
+                                                  style: const TextStyle(
+                                                      color: Colors.blue,
+                                                      decoration: TextDecoration
+                                                          .underline),
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTap = () async {
+                                                          final url = Uri.parse(
+                                                              materials
+                                                                  .recommendation!);
+                                                          try {
+                                                            await launchUrl(url,
+                                                                mode: LaunchMode
+                                                                    .externalApplication);
+                                                          } catch (e) {
+                                                            DInfo.dialogError(
+                                                                context,
+                                                                'Tidak bisa membuka link');
+                                                            DInfo.closeDialog(
+                                                                context);
+                                                          }
+                                                        }),
                                             ),
                                           ),
                                           Checkbox(
-                                            checkColor: AppColor.secondary,
-                                            value: materials.isDone, 
-                                            onChanged: (value){
-                                              setState(() {  
-                                                materials.isDone = value!;
-                                                cUser.updateProgress(
-                                                  _.data.id!, 
-                                                  _.progressUser.id!,
-                                                  indexLevel,
-                                                  index,
-                                                  value
-                                                );
-                                              });
-                                            }
-                                          )
+                                              checkColor: AppColor.secondary,
+                                              value: materials.isDone,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  materials.isDone = value!;
+                                                  cUser.updateProgress(
+                                                      _.data.id!,
+                                                      _.progressUser.id!,
+                                                      indexLevel,
+                                                      index,
+                                                      value);
+                                                });
+                                              })
                                         ],
                                       ),
                                     ),
                                   ),
-                                const SizedBox(height: 16,)
+                                const SizedBox(
+                                  height: 16,
+                                )
                               ],
                             );
                           })
@@ -315,7 +318,9 @@ class _HomeMenuState extends State<HomeMenu> {
                 fit: StackFit.expand,
                 children: [
                   Image.asset(
-                    cUser.data.isAdmin == true ? AppAsset.bgDefaultNews: AppFormat.showImageRoles(cUser.data.role!),
+                    cUser.data.isAdmin == true
+                        ? AppAsset.bgDefaultNews
+                        : AppFormat.showImageRoles(cUser.data.role!),
                     fit: BoxFit.cover,
                   ),
                   Container(
@@ -324,8 +329,8 @@ class _HomeMenuState extends State<HomeMenu> {
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                         colors: [
-                          Colors.black.withOpacity(0.9), // Opacity di kanan
-                          Colors.transparent, // Transparan di kiri
+                          Colors.black.withOpacity(0.9),
+                          Colors.transparent,
                         ],
                       ),
                     ),
@@ -339,9 +344,13 @@ class _HomeMenuState extends State<HomeMenu> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 15,),
+                const SizedBox(
+                  height: 15,
+                ),
                 Text(
-                  cUser.data.isAdmin == true ? 'Our Data\nToday' : AppFormat.formatIdPathName(cUser.data.role!),
+                  cUser.data.isAdmin == true
+                      ? 'Our Data\nToday'
+                      : AppFormat.formatIdPathName(cUser.data.role!),
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Colors.white,
                       fontSize: 20,
@@ -350,35 +359,36 @@ class _HomeMenuState extends State<HomeMenu> {
                 const SizedBox(
                   height: 15,
                 ),
-                if(cUser.data.isAdmin == false)
-                SizedBox(
-                  height: 30,
-                  width: 90,
-                  child: Material(
-                    color: AppColor.primary,
-                    borderRadius: BorderRadius.circular(8),
-                    child: InkWell(
-                      onTap: () {
-                        cRoles.getDataRole(cUser.data.role!).then((e){
-                          Roles role = cRoles.dataRole;
-                          Navigator.pushNamed(context, AppRoute.detailRoles,arguments: role);
-                        });
-                      },
-                      child: Container(
-                        width: null,
-                        padding: const EdgeInsets.all(5),
-                        child: const Text(
-                          'View',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 12,
-                              color: AppColor.secondary),
+                if (cUser.data.isAdmin == false)
+                  SizedBox(
+                    height: 30,
+                    width: 90,
+                    child: Material(
+                      color: AppColor.primary,
+                      borderRadius: BorderRadius.circular(8),
+                      child: InkWell(
+                        onTap: () {
+                          cRoles.getDataRole(cUser.data.role!).then((e) {
+                            Roles role = cRoles.dataRole;
+                            Navigator.pushNamed(context, AppRoute.detailRoles,
+                                arguments: role);
+                          });
+                        },
+                        child: Container(
+                          width: null,
+                          padding: const EdgeInsets.all(5),
+                          child: const Text(
+                            'View',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                                color: AppColor.secondary),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
+                  )
               ],
             ),
           ),
@@ -401,8 +411,8 @@ class _HomeMenuState extends State<HomeMenu> {
           hintText: 'Search',
           hintStyle: const TextStyle(color: Colors.grey),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8), // Border kustom
-            borderSide: BorderSide.none, // Tidak ada garis
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
           ),
         ),
       ),
@@ -437,41 +447,49 @@ class _HomeMenuState extends State<HomeMenu> {
             ClipRRect(
               borderRadius: BorderRadius.circular(50),
               child: Container(
-                color: AppColor.primary,
-                child: IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.powerOff), 
-                  onPressed: () { 
-                    showDialog(context: context, builder: (context){
-                      return AlertDialog(
-                        title: const Text("Apakah anda ingin keluar?"),
-                        content: const Text("Pilih aksi"),
-                        actions: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                onPressed: (){
-                                  SystemNavigator.pop();
-                                }, 
-                                child: Text("Keluar"),
-                                style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColor.secondary))
-                              ),
-                              TextButton(
-                                onPressed: (){
-                                  Navigator.pushNamedAndRemoveUntil(context, AppRoute.signin,(route)=>false);
-                                  Session.clearUser();
-                                }, 
-                                child: Text("Logout"),
-                                style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColor.secondary))
-                              )
-                            ],
-                          )
-                        ],
-                      );
-                    });
-                  }
-                )
-              ),
+                  color: AppColor.primary,
+                  child: IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.powerOff),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text("Apakah anda ingin keluar?"),
+                                content: const Text("Pilih aksi"),
+                                actions: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextButton(
+                                          onPressed: () {
+                                            SystemNavigator.pop();
+                                          },
+                                          child: Text("Keluar"),
+                                          style: const ButtonStyle(
+                                              backgroundColor:
+                                                  WidgetStatePropertyAll(
+                                                      AppColor.secondary))),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pushNamedAndRemoveUntil(
+                                                context,
+                                                AppRoute.signin,
+                                                (route) => false);
+                                            Session.clearUser();
+                                          },
+                                          child: Text("Logout"),
+                                          style: const ButtonStyle(
+                                              backgroundColor:
+                                                  WidgetStatePropertyAll(
+                                                      AppColor.secondary)))
+                                    ],
+                                  )
+                                ],
+                              );
+                            });
+                      })),
             )
           ],
         ));

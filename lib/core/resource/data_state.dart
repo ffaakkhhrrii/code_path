@@ -8,6 +8,14 @@ abstract class DataState<T> {
   const DataState({this.data,this.error});
 }
 
+class DataIdle<T> extends DataState<T>{
+  const DataIdle(T data):super(data: data);
+}
+
+class DataLoading<T> extends DataState<T>{
+  const DataLoading();
+}
+
 class DataSuccess<T> extends DataState<T>{
   const DataSuccess(T data): super(data: data);
 }

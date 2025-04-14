@@ -5,7 +5,7 @@ import 'package:code_path/features/presentation/page/admin_menu/add_news_page.da
 import 'package:code_path/features/presentation/page/admin_menu/add_path_page.dart';
 import 'package:code_path/features/presentation/page/detail_news_page.dart';
 import 'package:code_path/features/presentation/page/detail_path_page.dart';
-import 'package:code_path/features/presentation/page/home_page.dart';
+import 'package:code_path/features/presentation/page/home/home_page.dart';
 import 'package:code_path/features/presentation/page/login/signin_page.dart';
 import 'package:code_path/features/presentation/page/signup/signup_page.dart';
 import 'package:code_path/features/presentation/page/splash_page.dart';

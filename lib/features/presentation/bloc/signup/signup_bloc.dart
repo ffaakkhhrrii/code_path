@@ -9,26 +9,34 @@ class SignUpBloc extends Bloc<SignUpEvent,SignUpState>{
   final AuthUseCase useCase;
   final RolesUseCase rolesUseCase;
 
-  SignUpBloc({required this.useCase, required this.rolesUseCase}):super(const SignUpIdle()){
+  SignUpBloc({required this.useCase, required this.rolesUseCase}):super(SignUpState.initial()){
     on<SignUp> (onSignUp);
     on<ShowRole> (onShowRole);
   }
 
   void onSignUp(SignUp event,Emitter<SignUpState> emit) async{
-    emit(const SignUpLoading());
+    emit(state.copyWith(result: const DataLoading()));
     final result = await useCase.register(event.users,event.roles);
 
     if(result is DataSuccess){
-      emit(SignUpSuccess(result.data!));
+      emit(state.copyWith(result: DataSuccess(result.data!)));
     }
 
     if(result is DataFailed){
-      emit(SignUpFailed(result.error!));
+      emit(state.copyWith(result: DataFailed(result.error!)));
     }
   }
 
   void onShowRole(ShowRole event, Emitter<SignUpState> emit) async{
     final result = await rolesUseCase.getRoles();
-    emit(ShowRolesState(result));
+
+    if(result is DataSuccess){
+      emit(state.copyWith(roles: DataSuccess(result.data!)));
+    }
+
+    if(result is DataFailed){
+      emit(state.copyWith(roles: DataFailed(result.error!)));
+    }
+
   }
 }

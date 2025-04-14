@@ -19,4 +19,9 @@ class AuthUseCase implements AuthInteractor{
     return repository.register(user, role);
   }
 
+  @override
+  Future<DataState<Users>> getUser() {
+    return repository.getUser();
+  }
+
 }

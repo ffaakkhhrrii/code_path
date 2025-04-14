@@ -8,7 +8,6 @@ import 'package:code_path/features/presentation/widget/base_button.dart';
 import 'package:d_info/d_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class DetailNewsPage extends StatefulWidget {
   const DetailNewsPage({super.key});

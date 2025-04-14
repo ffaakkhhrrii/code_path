@@ -1,12 +1,10 @@
 import 'package:code_path/core/config/app_asset.dart';
 import 'package:code_path/core/config/app_color.dart';
-import 'package:code_path/features/presentation/controller/c_home.dart';
+import 'package:code_path/features/presentation/page/home/c_home.dart';
 import 'package:code_path/features/presentation/page/menu/home_menu.dart';
 import 'package:code_path/features/presentation/page/menu/news_menu.dart';
 import 'package:code_path/features/presentation/page/menu/path_menu.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
@@ -35,28 +33,28 @@ class HomePage extends StatelessWidget {
         () {
           return Material(
             elevation:
-                0, // Hilangkan elevation bawaan Material untuk menggunakan custom shadow
+                0,
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16), // Radius atas kiri
-                  topRight: Radius.circular(16), // Radius atas kanan
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1), // Warna shadow
-                    spreadRadius: 2, // Radius penyebaran shadow
-                    blurRadius: 10, // Radius blur shadow
-                    offset: const Offset(0, -10), // Posisi shadow (ke atas)
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                    offset: const Offset(0, -10),
                   ),
                 ],
               ),
               padding: const EdgeInsets.only(top: 8, bottom: 6),
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16), // Radius atas kiri
-                  topRight: Radius.circular(16), // Radius atas kanan
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
                 ),
                 child: BottomNavigationBar(
                   currentIndex: cHome.indexPage,

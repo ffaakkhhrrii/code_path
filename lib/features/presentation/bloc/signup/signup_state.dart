@@ -1,30 +1,28 @@
 import 'package:code_path/core/resource/data_state.dart';
 import 'package:code_path/features/data/model/roles.dart';
 
-abstract class SignUpState{
-  final String? result;
-  final Exception? error;
+class SignUpState{
+  final DataState<String>? result;
   final DataState<List<Roles>>? roles;
   
-  const SignUpState({this.result,this.error,this.roles});
-}
+  const SignUpState({this.result,this.roles});
 
-class SignUpIdle extends SignUpState{
-  const SignUpIdle();
-}
+  factory SignUpState.initial() {
+    return const SignUpState(
+      result: null,
+      roles: null,
+    );
+  }
 
-class SignUpLoading extends SignUpState{
-  const SignUpLoading();
-}
+  SignUpState copyWith({
+    DataState<String>? result,
+    Exception? error,
+    DataState<List<Roles>>? roles,
+  }) {
+    return SignUpState(
+      result: result ?? this.result,
+      roles: roles ?? this.roles,
+    );
+  }
 
-class SignUpSuccess extends SignUpState{
-  const SignUpSuccess(String result): super(result: result);
-}
-
-class SignUpFailed extends SignUpState{
-  const SignUpFailed(Exception error): super(error: error);
-}
-
-class ShowRolesState extends SignUpState{
-  const ShowRolesState(DataState<List<Roles>>? roles):super(roles: roles);
 }

@@ -88,10 +88,10 @@ class _SigninPageState extends State<SigninPage> {
                 suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
-                        _isObscure = !_isObscure; // Toggle nilai obscureText
+                        _isObscure = !_isObscure;
                         _suffixIcon = _isObscure
-                            ? Icons.visibility_off // Jika disembunyikan
-                            : Icons.visibility; // Jika terlihat
+                            ? Icons.visibility_off
+                            : Icons.visibility;
                       });
                     },
                     icon: Icon(_suffixIcon)),

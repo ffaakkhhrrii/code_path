@@ -162,7 +162,7 @@ class _SignupPageState extends State<SignupPage> {
               isExpand: true,
             );
           }, listener: (context, state) {
-            if (state is SignUpLoading) {
+            if (state.result is DataLoading) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 if (context.mounted) {
                   showDialog(
@@ -175,7 +175,10 @@ class _SignupPageState extends State<SignupPage> {
               });
             }
 
-            if (state is SignUpSuccess) {
+            if (state.result is DataSuccess) {
+              if (Navigator.of(context, rootNavigator: true).canPop()) {
+                Navigator.of(context, rootNavigator: true).pop();
+              }
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 if (context.mounted) {
                   showDialog(
@@ -188,14 +191,17 @@ class _SignupPageState extends State<SignupPage> {
                           }
                         });
                         return BasicDialog(
-                          message: state.result!,
+                          message: state.result!.data!,
                         );
                       });
                 }
               });
             }
 
-            if (state is SignUpFailed) {
+            if (state.result is DataFailed) {
+              if (Navigator.of(context, rootNavigator: true).canPop()) {
+                Navigator.of(context, rootNavigator: true).pop();
+              }
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 if (context.mounted) {
                   showDialog(
@@ -207,7 +213,7 @@ class _SignupPageState extends State<SignupPage> {
                           }
                         });
                         return BasicDialog(
-                          message: state.error.toString(),
+                          message: state.result!.error.toString(),
                         );
                       });
                 }
