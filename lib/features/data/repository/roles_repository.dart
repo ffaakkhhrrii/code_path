@@ -15,4 +15,14 @@ class RolesRepository implements IRolesRepository{
     }
   }
 
+  @override
+  Future<DataState<Roles>> getDataRoles(String roleId) async {
+    try{
+      var result = await RolesSource.getRolesDetail(roleId);
+      return DataSuccess(result);
+    }on Exception catch(e){
+      return DataFailed(e);
+    }
+  }
+
 }

@@ -1,9 +1,9 @@
 import 'package:code_path/core/config/app_asset.dart';
 import 'package:code_path/core/config/app_color.dart';
 import 'package:code_path/features/presentation/page/home/c_home.dart';
-import 'package:code_path/features/presentation/page/menu/home_menu.dart';
-import 'package:code_path/features/presentation/page/menu/news_menu.dart';
-import 'package:code_path/features/presentation/page/menu/path_menu.dart';
+import 'package:code_path/features/presentation/page/home/menu/home_menu.dart';
+import 'package:code_path/features/presentation/page/home/menu/news_menu.dart';
+import 'package:code_path/features/presentation/page/home/menu/path_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

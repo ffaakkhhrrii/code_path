@@ -14,4 +14,9 @@ class RolesUseCase implements RolesInteractor{
     return repository.getRoles();
   }
 
+  @override
+  Future<DataState<Roles>> getDataRoles(String roleId) {
+    return repository.getDataRoles(roleId);
+  }
+
 }

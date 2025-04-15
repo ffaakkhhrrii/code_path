@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-
 abstract class DataState<T> {
   final T? data;
 
@@ -9,7 +7,7 @@ abstract class DataState<T> {
 }
 
 class DataIdle<T> extends DataState<T>{
-  const DataIdle(T data):super(data: data);
+  const DataIdle();
 }
 
 class DataLoading<T> extends DataState<T>{

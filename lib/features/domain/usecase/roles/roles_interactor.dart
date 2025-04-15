@@ -3,4 +3,5 @@ import 'package:code_path/features/data/model/roles.dart';
 
 abstract class RolesInteractor{
   Future<DataState<List<Roles>>> getRoles();
+  Future<DataState<Roles>> getDataRoles(String roleId);
 }
