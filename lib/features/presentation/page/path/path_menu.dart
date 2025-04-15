@@ -18,7 +18,6 @@ class PathMenu extends StatefulWidget {
 }
 
 class _PathMenuState extends State<PathMenu> {
-
   @override
   void initState() {
     super.initState();
@@ -27,34 +26,35 @@ class _PathMenuState extends State<PathMenu> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PathBloc>(
-      create: (context) => s1()..add(const FetchPath()),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 30,
-          ),
-          header(context),
-          Expanded(
-              child: RefreshIndicator(
-            child: listPath(),
-            onRefresh: () async {
-              context.read<PathBloc>().add(const FetchPath());
-            },
-          ))
-        ],
-      ),
-    );
+        create: (context) => s1()..add(const FetchPath()),
+        child: Builder(builder: (newContext) {
+          return Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              header(context),
+              Expanded(
+                  child: RefreshIndicator(
+                child: listPath(),
+                onRefresh: () async {
+                  newContext.read<PathBloc>().add(const FetchPath());
+                },
+              ))
+            ],
+          );
+        }));
   }
 
   listPath() {
-    return BlocBuilder<PathBloc,PathState>(builder: (context, state) {
-      if(state.listRoles is DataLoading){
+    return BlocBuilder<PathBloc, PathState>(builder: (context, state) {
+      if (state.listRoles is DataLoading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
       }
 
-      if(state.listRoles is DataSuccess){
+      if (state.listRoles is DataSuccess) {
         if (state.listRoles!.data!.isEmpty) {
           return const Center(
             child: Text("Belum ada path"),
@@ -68,7 +68,7 @@ class _PathMenuState extends State<PathMenu> {
                 Roles roles = state.listRoles!.data![index];
                 return Container(
                     decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     padding: const EdgeInsets.all(16),
                     child: Stack(
                       children: [
@@ -111,9 +111,9 @@ class _PathMenuState extends State<PathMenu> {
                                     .textTheme
                                     .titleSmall!
                                     .copyWith(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700),
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700),
                               ),
                               const SizedBox(
                                 height: 15,
@@ -183,9 +183,9 @@ class _PathMenuState extends State<PathMenu> {
   }
 
   iconNews(BuildContext context) {
-    return BlocBuilder<PathBloc,PathState>(
-      builder: (context,state){
-        if(state.users is DataSuccess){
+    return BlocBuilder<PathBloc, PathState>(
+      builder: (context, state) {
+        if (state.users is DataSuccess) {
           if (state.users!.data!.isAdmin == true) {
             return InkWell(
               onTap: () {
@@ -199,10 +199,10 @@ class _PathMenuState extends State<PathMenu> {
                     color: AppColor.secondary),
                 child: const Center(
                     child: Icon(
-                      Icons.add,
-                      size: 30,
-                      color: Colors.white,
-                    )),
+                  Icons.add,
+                  size: 30,
+                  color: Colors.white,
+                )),
               ),
             );
           } else {
@@ -210,13 +210,14 @@ class _PathMenuState extends State<PathMenu> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10), color: AppColor.secondary),
+                  borderRadius: BorderRadius.circular(10),
+                  color: AppColor.secondary),
               child: const Center(
                   child: Icon(
-                    Icons.space_dashboard,
-                    size: 30,
-                    color: Colors.white,
-                  )),
+                Icons.space_dashboard,
+                size: 30,
+                color: Colors.white,
+              )),
             );
           }
         }
