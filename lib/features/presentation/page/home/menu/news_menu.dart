@@ -48,7 +48,9 @@ class _NewsMenuState extends State<NewsMenu> {
           height: 10,
         ),
         searchField(),
-        Expanded(child: RefreshIndicator(child: newsList(), onRefresh: ()=> cNews.getListNews()))
+        Expanded(
+            child: RefreshIndicator(
+                child: newsList(), onRefresh: () => cNews.getListNews()))
       ],
     );
   }
@@ -67,61 +69,86 @@ class _NewsMenuState extends State<NewsMenu> {
             itemBuilder: (context, index) {
               News news = data.listNews[index];
               return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, AppRoute.detailNews,
-                            arguments: news);
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColor.secondary),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                news.title!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium!
-                                    .copyWith(
-                                        color: AppColor.backgroundScaffold,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 20),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                width: 60,
-                                decoration: BoxDecoration(
-                                    color: AppColor.primary,
-                                    borderRadius: BorderRadius.circular(3)),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 2),
-                                  child: Center(
-                                    child: Text(
-                                      themeNews(news.theme!),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12),
-                                    ),
-                                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoute.detailNews,
+                        arguments: news);
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppColor.secondary),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            news.title!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(
+                                    color: AppColor.backgroundScaffold,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 20),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            width: 60,
+                            decoration: BoxDecoration(
+                                color: AppColor.primary,
+                                borderRadius: BorderRadius.circular(3)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 2),
+                              child: Center(
+                                child: Text(
+                                  themeNews(news.theme!),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            news.description!,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    fontSize: 15,
+                                    color: AppColor.backgroundScaffold),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                news.createdBy!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: AppColor.primary),
                               ),
                               Text(
-                                news.description!,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                                AppFormat.date(news.createdAt!),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -129,39 +156,12 @@ class _NewsMenuState extends State<NewsMenu> {
                                         fontSize: 15,
                                         color: AppColor.backgroundScaffold),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    news.createdBy!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                            color: AppColor.primary),
-                                  ),
-                                  Text(
-                                    AppFormat.date(news.createdAt!),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                            fontSize: 15,
-                                            color: AppColor.backgroundScaffold),
-                                  ),
-                                ],
-                              )
                             ],
-                          ),
-                        ),
-                      )
-                  );
+                          )
+                        ],
+                      ),
+                    ),
+                  ));
             });
       }
     });
