@@ -13,4 +13,29 @@ class NewsUseCase implements NewsInteractor{
     return repository.getListNews();
   }
 
+  @override
+  Future<DataState<News>> getNews(String newsId) {
+    return repository.getNews(newsId);
+  }
+
+  @override
+  Future<DataState<void>> likeNews(String idNews, Map<String, dynamic> like) {
+    return repository.likeNews(idNews, like);
+  }
+
+  @override
+  Future<DataState<void>> unlikeNews(String idNews, Map<String, dynamic> like) {
+    return repository.unlikeNews(idNews, like);
+  }
+
+  @override
+  Future<DataState<String>> getUsername(String userId) {
+    return repository.getUsername(userId);
+  }
+
+  @override
+  Future<DataState<String>> addComment(String idNews, Map<String, dynamic> comment) {
+    return repository.addComment(idNews, comment);
+  }
+
 }

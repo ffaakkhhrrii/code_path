@@ -33,11 +33,11 @@ class CNews extends GetxController{
   }
 
   likeComment(String idNews, Map<String,dynamic> like)async{
-    await NewsSource.likeComment(idNews, like);
+    await NewsSource.likeNews(idNews, like);
   }
 
   unlikeComment(String idNews,Map<String,dynamic> like)async{
-    await NewsSource.unlikeComment(idNews, like);
+    await NewsSource.unlikeNews(idNews, like);
   }
 
   searchNews(String text) async{

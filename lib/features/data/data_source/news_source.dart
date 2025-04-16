@@ -39,13 +39,13 @@ class NewsSource {
     return response;
   }
 
-  static Future<void> likeComment(String idNews,Map<String,dynamic> like)async{
+  static Future<void> likeNews(String idNews,Map<String,dynamic> like)async{
     var instance = FirebaseFirestore.instance.collection("News").doc(idNews)
     .update({"likes": FieldValue.arrayUnion([like])});
     await instance;
   }
 
-  static Future<void> unlikeComment(String idNews,Map<String,dynamic> like)async{
+  static Future<void> unlikeNews(String idNews,Map<String,dynamic> like)async{
     var instance = FirebaseFirestore.instance.collection("News").doc(idNews)
     .update({"likes": FieldValue.arrayRemove([like])});
     await instance;

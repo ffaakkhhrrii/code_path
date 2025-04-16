@@ -11,6 +11,7 @@ import 'package:code_path/features/domain/usecase/roles/roles_usecase.dart';
 import 'package:code_path/features/presentation/bloc/home/home_bloc.dart';
 import 'package:code_path/features/presentation/bloc/login/login_bloc.dart';
 import 'package:code_path/features/presentation/bloc/news/news_bloc.dart';
+import 'package:code_path/features/presentation/bloc/news_detail/news_detail_bloc.dart';
 import 'package:code_path/features/presentation/bloc/path/path_bloc.dart';
 import 'package:code_path/features/presentation/bloc/signup/signup_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -58,6 +59,10 @@ Future<void> initializeDependencies() async{
   ));
 
   s1.registerFactory<NewsBloc>(()=>NewsBloc(
+      s1()
+  ));
+
+  s1.registerFactory<NewsDetailBloc>(()=>NewsDetailBloc(
       s1()
   ));
 }

@@ -54,23 +54,27 @@ class Comments {
     String? id;
     String? comment;
     DateTime? createdAt;
+    String? name;
 
     Comments({
         this.id,
         this.comment,
-        this.createdAt
+        this.createdAt,
+        this.name
     });
 
     factory Comments.fromJson(Map<String, dynamic> json) => Comments(
         id: json["id"],
         comment: json["comment"],
-        createdAt: (json["created_at"] as Timestamp).toDate()
+        createdAt: (json["created_at"] as Timestamp).toDate(),
+        name: json["name"],
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "comment": comment,
         "created_at": Timestamp.fromDate(createdAt!),
+        "name": name,
     };
 }
 

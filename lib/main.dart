@@ -3,7 +3,7 @@ import 'package:code_path/core/config/app_route.dart';
 import 'package:code_path/firebase_options.dart';
 import 'package:code_path/features/presentation/page/admin_menu/add_news_page.dart';
 import 'package:code_path/features/presentation/page/admin_menu/add_path_page.dart';
-import 'package:code_path/features/presentation/page/detail_news_page.dart';
+import 'package:code_path/features/presentation/page/news_detail/detail_news_page.dart';
 import 'package:code_path/features/presentation/page/path_detail/detail_path_page.dart';
 import 'package:code_path/features/presentation/page/home/home_page.dart';
 import 'package:code_path/features/presentation/page/login/signin_page.dart';
