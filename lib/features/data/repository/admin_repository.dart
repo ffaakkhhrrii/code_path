@@ -1,7 +1,9 @@
 import 'package:code_path/core/resource/data_state.dart';
 import 'package:code_path/features/data/data_source/news_source.dart';
+import 'package:code_path/features/data/data_source/roles_source.dart';
 import 'package:code_path/features/data/data_source/user_source.dart';
 import 'package:code_path/features/data/model/news.dart';
+import 'package:code_path/features/data/model/roles.dart';
 import 'package:code_path/features/domain/repository/iadmin_repository.dart';
 
 class AdminRepository implements IAdminRepository{
@@ -30,6 +32,20 @@ class AdminRepository implements IAdminRepository{
   Future<DataState<String>> addNews(News news) async{
     try{
       var result = await NewsSource.addNews(news);
+      if(result['success']){
+        return DataSuccess(result['message']);
+      }else{
+        return DataFailed(result['message']);
+      }
+    }on Exception catch(e){
+      return DataFailed(e);
+    }
+  }
+
+  @override
+  Future<DataState<String>> addRoles(Roles roles)async {
+    try{
+      var result = await RolesSource.addPath(roles);
       if(result['success']){
         return DataSuccess(result['message']);
       }else{

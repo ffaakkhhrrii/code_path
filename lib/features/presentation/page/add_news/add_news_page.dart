@@ -44,8 +44,7 @@ class _AddNewsPageState extends State<AddNewsPage> {
             leading: IconButton(
                 onPressed: () {
                   Navigator.pushReplacementNamed(
-                      context, AppRoute.home,
-                      arguments: 2);
+                      context, AppRoute.home);
                 }, icon: const Icon(Icons.arrow_back)),
           ),
           body: fieldAddPath(context)),
@@ -131,11 +130,7 @@ class _AddNewsPageState extends State<AddNewsPage> {
                                   builder: (context) {
                                     Future.delayed(const Duration(seconds: 2),
                                         () {
-                                      if (context.mounted) {
-                                        Navigator.pushReplacementNamed(
-                                            context, AppRoute.home,
-                                            arguments: 2);
-                                      }
+                                          Navigator.pushNamedAndRemoveUntil(context, AppRoute.home,(route)=>false);
                                     });
                                     return BasicDialog(
                                       message: state.resultSubmit!.data!,
@@ -145,7 +140,7 @@ class _AddNewsPageState extends State<AddNewsPage> {
                           });
                         }
 
-                        if (state is DataFailed) {
+                        if (state.resultSubmit is DataFailed) {
                           WidgetsBinding.instance.addPostFrameCallback((_) {
                             if (context.mounted) {
                               showDialog(

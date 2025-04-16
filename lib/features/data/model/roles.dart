@@ -52,6 +52,18 @@ class Level {
         "name": name,
         "materials": List<dynamic>.from(materials.map((x) => x.toJson()))
     };
+
+    Level copyWith({
+        String? description,
+        String? name,
+        List<Materials>? materials,
+    }) {
+        return Level(
+            description: description ?? this.description,
+            name: name ?? this.name,
+            materials: materials ?? this.materials,
+        );
+    }
 }
 
 class Materials {

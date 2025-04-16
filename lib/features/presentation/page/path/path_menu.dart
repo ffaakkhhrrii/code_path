@@ -189,7 +189,7 @@ class _PathMenuState extends State<PathMenu> {
           if (state.users!.data!.isAdmin == true) {
             return InkWell(
               onTap: () {
-                Navigator.pushNamed(context, AppRoute.addPath);
+                Navigator.pushReplacementNamed(context, AppRoute.addPath);
               },
               child: Container(
                 width: 40,
