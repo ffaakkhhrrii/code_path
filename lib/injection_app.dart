@@ -8,6 +8,7 @@ import 'package:code_path/features/domain/usecase/auth/auth_usecase.dart';
 import 'package:code_path/features/domain/usecase/news/news_usecase.dart';
 import 'package:code_path/features/domain/usecase/progress/progress_usecase.dart';
 import 'package:code_path/features/domain/usecase/roles/roles_usecase.dart';
+import 'package:code_path/features/presentation/bloc/add_news/add_news_bloc.dart';
 import 'package:code_path/features/presentation/bloc/home/home_bloc.dart';
 import 'package:code_path/features/presentation/bloc/login/login_bloc.dart';
 import 'package:code_path/features/presentation/bloc/news/news_bloc.dart';
@@ -64,5 +65,10 @@ Future<void> initializeDependencies() async{
 
   s1.registerFactory<NewsDetailBloc>(()=>NewsDetailBloc(
       s1()
+  ));
+
+  s1.registerFactory<AddNewsBloc>(()=>AddNewsBloc(
+      adminUseCase: s1(),
+      rolesUseCase: s1()
   ));
 }

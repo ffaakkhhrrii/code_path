@@ -17,4 +17,9 @@ class AdminUseCase implements AdminInteractor{
     return repository.getNewsCount();
   }
 
+  @override
+  Future<DataState<String>> addNews(news) {
+    return repository.addNews(news);
+  }
+
 }

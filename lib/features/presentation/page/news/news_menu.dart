@@ -232,7 +232,7 @@ class _NewsMenuState extends State<NewsMenu> {
             if (state.users!.data!.isAdmin == true) {
               return InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoute.addNews);
+                  Navigator.pushReplacementNamed(context, AppRoute.addNews);
                 },
                 child: Container(
                   width: 60,

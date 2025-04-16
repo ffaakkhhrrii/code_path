@@ -19,6 +19,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final page = ModalRoute.of(context)?.settings.arguments as int?;
+
+    if (page != null) {
+      cHome.indexPage = page;
+    }
     return Scaffold(
       body: Obx(() {
         if (cHome.indexPage == 0) {
