@@ -18,4 +18,4 @@ Code Path is a simple application I created with the aim of helping users find r
 ***This project is built using the following technologies***:
 - Firebase Database (Firestore,Authentication)
 - Flutter
-- GetX
+- Bloc
